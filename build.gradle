@@ -1,0 +1,13 @@
+plugins {
+    id "java"
+    id "maven"
+    id "maven-publish"
+}
+
+group = 'br.com.armange'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+apply from: "$projectDir/gradle/library.gradle"
+apply from: "$projectDir/gradle/configurations.all.gradle"
+apply from: "$projectDir/gradle/dependencies.gradle"

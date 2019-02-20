@@ -1,0 +1,27 @@
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile library.org_jboss_weld_se_weld_se
+    
+    compile library.org_apache_deltaspike_core_deltaspike_core_api
+    compile library.org_apache_deltaspike_core_deltaspike_core_impl
+    compile library.org_apache_deltaspike_cdictrl_deltaspike_cdictrl_api
+    compile library.org_apache_deltaspike_cdictrl_deltaspike_cdictrl_weld
+    compile library.org_apache_deltaspike_cdictrl_deltaspike_cdictrl_servlet
+    
+    compile library.org_apache_tomcat_embed_tomcat_embed_core
+    compile library.org_apache_tomcat_embed_tomcat_embed_logging_juli
+    compile library.org_apache_tomcat_embed_tomcat_embed_jasper
+    compile library.org_apache_tomcat_tomcat_jasper
+    compile library.org_apache_tomcat_tomcat_jasper_el
+    compile library.org_apache_tomcat_tomcat_jsp_api
+    
+    compile library.org_apache_logging_log4j_log4j_api
+    compile library.org_apache_logging_log4j_log4j_core
+    
+    compile library.org_glassfish_jersey_containers_jersey_container_servlet
+
+    testImplementation library.junit_junit
+}

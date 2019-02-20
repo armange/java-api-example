@@ -1,0 +1,9 @@
+configurations.all {
+  resolutionStrategy {
+    failOnVersionConflict()
+
+    preferProjectModules()
+
+    cacheChangingModulesFor 0, 'seconds'
+  }
+}
