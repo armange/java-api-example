@@ -1,0 +1,10 @@
+rootProject.name = 'backend-example'
+include 'backend-example-entity-api',
+        'backend-example-repository-entity-api',
+        'backend-example-dao-api',
+        'backend-example-dao-hibernate-impl',
+        'backend-example-rest-resource-api',
+        'backend-example-rest-service-api',
+        'backend-example-rest-service-impl',
+        'backend-example-tree-rest-api',
+        'backend-example-common-impl'

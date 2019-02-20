@@ -1,0 +1,5 @@
+dependencies {
+    compile projects.backend_example_dao_api
+    compile projects.backend_example_rest_service_api
+    compile library.org_glassfish_jersey_ext_jersey_bean_validation
+}

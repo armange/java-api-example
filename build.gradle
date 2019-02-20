@@ -1,0 +1,22 @@
+allprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
+    
+    group = 'br.com.armange.backend-example'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = 1.8
+    
+    apply from: "$rootDir/gradle/repositories.gradle"
+    apply from: "$rootDir/gradle/library.gradle"
+    apply from: "$rootDir/gradle/projects.gradle"
+    apply from: "$rootDir/gradle/configurations.gradle"
+}
+
+subprojects {
+    apply from: "$projectDir/gradle/$name/dependencies.gradle"
+    apply from: "$projectDir/gradle/jar.gradle"
+    apply from: "$projectDir/gradle/publishing.gradle"
+}
+
+apply from: "$projectDir/gradle/dependencies.gradle"

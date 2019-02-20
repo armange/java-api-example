@@ -1,0 +1,3 @@
+dependencies {
+    compile library.javax_persistence_javax_persistence_api
+}

@@ -1,0 +1,6 @@
+ext.projects = [
+    backend_example_entity_api: project(':backend-example-entity-api'),
+    backend_example_dao_api: project(':backend-example-dao-api'),
+    backend_example_rest_service_api: project(':backend-example-rest-service-api'),
+    backend_example_common_impl: project(':backend-example-common-impl')
+]
