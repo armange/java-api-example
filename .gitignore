@@ -23,3 +23,12 @@
 hs_err_pid*
 /.gradle/
 /build/
+/bin/
+
+# Eclips files
+.project
+.classpath
+.settings
+
+# Others
+*.swp
