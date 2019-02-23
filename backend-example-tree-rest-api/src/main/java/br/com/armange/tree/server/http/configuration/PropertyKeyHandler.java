@@ -1,4 +1,4 @@
-package br.com.armange.server.http.configuration;
+package br.com.armange.tree.server.http.configuration;
 
 public class PropertyKeyHandler {
 	

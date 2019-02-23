@@ -1,4 +1,4 @@
-package br.com.armange.server.http.tomcat;
+package br.com.armange.tree.server.http.tomcat;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
@@ -13,11 +13,11 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.Configurator;
 import org.glassfish.jersey.servlet.ServletContainer;
 
-import br.com.armange.configuration.PropertyKeyHandler;
-import br.com.armange.configuration.ServerProperties;
-import br.com.armange.jaxrs.Application;
+import br.com.armange.tree.jaxrs.application.Application;
+import br.com.armange.tree.server.http.configuration.PropertyKeyHandler;
+import br.com.armange.tree.server.http.configuration.ServerProperties;
 
-public class TomcatServer implements HttpServer {
+public class TomcatServer {
     
     private static TomcatServer INSTANCE;
     private static final Logger LOGGER = LogManager.getLogger(TomcatServer.class);

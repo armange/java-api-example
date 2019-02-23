@@ -6,6 +6,4 @@ include 'backend-example-entity-api',
         'backend-example-rest-resource-api',
         'backend-example-rest-service-api',
         'backend-example-rest-service-impl',
-        'backend-example-http-server-api',
-        'backend-example-tree-rest-api',
-        'backend-example-http-server-tomcat-impl'
+        'backend-example-tree-rest-api'
