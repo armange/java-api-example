@@ -1,0 +1,3 @@
+dependencies {
+    compile projects.backend_example_http_server_tomcat_impl
+}

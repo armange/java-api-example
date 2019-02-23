@@ -4,7 +4,7 @@ def jerseyVersion = "2.25.1"
 def log4jVersion = "2.11.2"
 
 ext.library = [
-	org_apache_tomcat_embed_tomcat_embed_core: "org.apache.tomcat.embed:tomcat-embed-core:$tomcatVersion",
+    org_apache_tomcat_embed_tomcat_embed_core: "org.apache.tomcat.embed:tomcat-embed-core:$tomcatVersion",
     org_apache_tomcat_embed_tomcat_embed_logging_juli: "org.apache.tomcat.embed:tomcat-embed-logging-juli:$tomcatVersion",
     org_apache_tomcat_embed_tomcat_embed_jasper: "org.apache.tomcat.embed:tomcat-embed-jasper:$tomcatVersion",
     org_apache_tomcat_tomcat_jasper: "org.apache.tomcat:tomcat-jasper:$tomcatVersion",
@@ -13,6 +13,10 @@ ext.library = [
     
     org_jboss_weld_se_weld_se: "org.jboss.weld.se:weld-se:2.3.3.Final",
     
+    org_javassist_javassist: "org.javassist:javassist:3.24.0-GA",
+    
+    javax_persistence_javax_persistence_api: "javax.persistence:javax.persistence-api:2.2",
+    
     org_apache_deltaspike_core_deltaspike_core_api: "org.apache.deltaspike.core:deltaspike-core-api:$deltaspikeVersion",
     org_apache_deltaspike_core_deltaspike_core_impl: "org.apache.deltaspike.core:deltaspike-core-impl:$deltaspikeVersion",
     org_apache_deltaspike_cdictrl_deltaspike_cdictrl_api: "org.apache.deltaspike.cdictrl:deltaspike-cdictrl-api:$deltaspikeVersion",
@@ -20,9 +24,13 @@ ext.library = [
     org_apache_deltaspike_cdictrl_deltaspike_cdictrl_servlet: "org.apache.deltaspike.cdictrl:deltaspike-cdictrl-servlet:$deltaspikeVersion",
     
     org_apache_logging_log4j_log4j_api: "org.apache.logging.log4j:log4j-api:$log4jVersion",
-  	org_apache_logging_log4j_log4j_core: "org.apache.logging.log4j:log4j-core:$log4jVersion",
+    org_apache_logging_log4j_log4j_core: "org.apache.logging.log4j:log4j-core:$log4jVersion",
     
     org_glassfish_jersey_containers_jersey_container_servlet: "org.glassfish.jersey.containers:jersey-container-servlet:$jerseyVersion",
+    org_glassfish_jersey_ext_jersey_bean_validation: "org.glassfish.jersey.ext:jersey-bean-validation:$jerseyVersion",
+    
+    
+    org_hibernate_hibernate_core: "org.hibernate:hibernate-core:5.4.1.Final",
     
     org_apache_commons_commons_math3: "org.apache.commons:commons-math3:3.6.1",
     
