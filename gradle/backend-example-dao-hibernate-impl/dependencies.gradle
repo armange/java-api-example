@@ -1,4 +1,7 @@
 dependencies {
+    compile projects.backend_example_common_impl
     compile projects.backend_example_entity_api
     compile projects.backend_example_dao_api
+    
+    compile library.org_hibernate_hibernate_core
 }

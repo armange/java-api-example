@@ -7,6 +7,12 @@ import javax.persistence.criteria.CriteriaBuilder;
 
 import br.com.armange.entity.Identifiable;
 
+/**
+ * @author Diego Armange Costa
+ *
+ * @param <T> Primary key type
+ * @param <I> Entity type
+ */
 public interface Dao<T, I extends Identifiable<T>> {
 
     void save(I identifiable);

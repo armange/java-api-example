@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.persistence.criteria.CriteriaBuilder;
 
+import org.hibernate.cfg.Environment;
+
 import br.com.armange.entity.Identifiable;
 
 public class DaoImpl<T, I extends Identifiable<T>> 
@@ -12,7 +14,7 @@ public class DaoImpl<T, I extends Identifiable<T>>
 
     @Override
     public void save(final I identifiable) {
-        
+        String s = Environment.PASS;
     }
 
     @Override

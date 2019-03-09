@@ -1,6 +1,4 @@
 dependencies {
-    //compile projects.backend_example_
-
     compile library.org_jboss_weld_se_weld_se
     
     compile library.org_apache_deltaspike_core_deltaspike_core_api
@@ -18,6 +16,4 @@ dependencies {
     
     compile library.org_apache_logging_log4j_log4j_api
     compile library.org_apache_logging_log4j_log4j_core
-    
-    compile library.org_glassfish_jersey_containers_jersey_container_servlet
 }
