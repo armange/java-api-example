@@ -1,9 +1,16 @@
 configurations.all {
-  resolutionStrategy {
-    failOnVersionConflict()
+    withDependencies { dependencies ->
+        dependencies.each { dependency ->
+            // Avoid cyclic dependency
+            dependency.exclude group: 'br.com.armange'
+        }
+    }
+    
+    resolutionStrategy {
+        failOnVersionConflict()
+        
+        force library.values()
 
-    preferProjectModules()
-
-    cacheChangingModulesFor 0, 'seconds'
-  }
+        cacheChangingModulesFor 0, 'seconds'
+    }
 }
