@@ -6,4 +6,5 @@ include 'backend-example-entity-api',
         'backend-example-rest-resource-api',
         'backend-example-rest-service-api',
         'backend-example-rest-service-impl',
-        'backend-example-tree-rest-api'
+        'backend-example-tree-rest-api',
+        'backend-example-common-impl'
