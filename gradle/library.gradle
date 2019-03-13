@@ -2,6 +2,7 @@ def tomcatVersion = "7.0.92"
 def deltaspikeVersion = "1.9.0"
 def jerseyVersion = "2.25.1"
 def log4jVersion = "2.11.2"
+def armangeVersion = "0.0.1-SNAPSHOT"
 
 ext.library = [
     
@@ -52,5 +53,15 @@ ext.library = [
     //com_google_guava_guava: "com.google.guava:guava:23.0",
     
     // Eclipse Public License 1.0
-    junit_junit: "junit:junit:4.12"
+    junit_junit: "junit:junit:4.12",
+    
+    // The Apache Software License, Version 2.0
+    org_assertj_assertj_core: "org.assertj:assertj-core:3.12.1",
+    org_hamcrest_hamcrest: "org.hamcrest:hamcrest:2.1",
+    
+    com_h2database_h2: "com.h2database:h2:1.4.193",
+    
+    // Apache License 2.0
+    br_com_armange_codeless_codeless_reflection: "br.com.armange.codeless:codeless-reflection:$armangeVersion",
+    br_com_armange_codeless_codeless_core: "br.com.armange.codeless:codeless-core:$armangeVersion" 
 ]

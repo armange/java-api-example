@@ -1,5 +1,5 @@
 package br.com.armange.rest.resource;
 
-public interface ResourcePost {
+public interface ResourceInsert {
 
 }

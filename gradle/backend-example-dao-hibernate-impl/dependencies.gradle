@@ -3,5 +3,13 @@ dependencies {
     compile projects.backend_example_entity_api
     compile projects.backend_example_dao_api
     
+    compile library.br_com_armange_codeless_codeless_reflection
+    compile library.br_com_armange_codeless_codeless_core
+    
     compile library.org_hibernate_hibernate_core
+    
+    testCompile library.junit_junit
+    testCompile library.org_assertj_assertj_core
+    testCompile library.org_hamcrest_hamcrest
+    testCompile library.com_h2database_h2
 }

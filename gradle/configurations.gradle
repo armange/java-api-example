@@ -2,7 +2,7 @@ configurations.all {
     withDependencies { dependencies ->
         dependencies.each { dependency ->
             // Avoid cyclic dependency
-            dependency.exclude group: 'br.com.armange'
+            dependency.exclude group: 'br.com.armange.backend-example'
         }
     }
     
