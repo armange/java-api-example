@@ -1,5 +1,5 @@
 package br.com.armange.rest.service;
 
-public interface ServicePut {
+public interface ServiceFindAll {
 
 }
