@@ -70,6 +70,7 @@ public class DaoImpl<I, E extends Identifiable<I>>
         return recoverThroughTransaction(s -> s.createQuery(createFindAllQuery()).getResultList());
     }
     
+<<<<<<< HEAD:backend-example-dao-hibernate-impl/src/main/java/br/com/armange/dao/DaoImpl.java
     @Override
     public Page<E> findPage() {
         return recoverThroughTransaction(
@@ -82,6 +83,8 @@ public class DaoImpl<I, E extends Identifiable<I>>
                 createCountedPage(createFindAllQuery(), 0, 10));
     }
     
+=======
+>>>>>>> e2edc64... FindAll Dao method.:backend-example-dao-hibernate-impl/src/main/java/br/com/armange/dao/AbstractDao.java
     private CriteriaQuery<E> createFindAllQuery() {
         final CriteriaBuilder criteriaBuilder = getCriteriaBuilder();
         final CriteriaQuery<E> criteriaQuery = criteriaBuilder.createQuery(getEntityClass());
