@@ -30,6 +30,12 @@ ext.library = [
      */
     javax_persistence_javax_persistence_api: "javax.persistence:javax.persistence-api:2.2",
     
+    /*
+     * CDDL 1.1
+     * GPL2 w/ CPE
+     */
+    javax_ws_rs_javax_ws_rs_api: "javax.ws.rs:javax.ws.rs-api:2.0",
+    
     // Apache License 2.0
     org_apache_deltaspike_core_deltaspike_core_api: "org.apache.deltaspike.core:deltaspike-core-api:$deltaspikeVersion",
     org_apache_deltaspike_core_deltaspike_core_impl: "org.apache.deltaspike.core:deltaspike-core-impl:$deltaspikeVersion",
@@ -40,6 +46,9 @@ ext.library = [
     // Apache License 2.0
     org_apache_logging_log4j_log4j_api: "org.apache.logging.log4j:log4j-api:$log4jVersion",
     org_apache_logging_log4j_log4j_core: "org.apache.logging.log4j:log4j-core:$log4jVersion",
+    
+    // Apache License 2.0
+    org_apache_httpcomponents_httpcore: "org.apache.httpcomponents:httpcore:4.4.11",
     
     // CDDL+GPL License
     org_glassfish_jersey_containers_jersey_container_servlet: "org.glassfish.jersey.containers:jersey-container-servlet:$jerseyVersion",
@@ -55,10 +64,11 @@ ext.library = [
     // Eclipse Public License 1.0
     junit_junit: "junit:junit:4.12",
     
-    // The Apache Software License, Version 2.0
+    // Apache License 2.0
     org_assertj_assertj_core: "org.assertj:assertj-core:3.12.1",
     org_hamcrest_hamcrest: "org.hamcrest:hamcrest:2.1",
     
+    // MPL 2.0 or EPL 1.0
     com_h2database_h2: "com.h2database:h2:1.4.193",
     
     // Apache License 2.0
