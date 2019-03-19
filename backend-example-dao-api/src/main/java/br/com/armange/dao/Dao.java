@@ -33,6 +33,8 @@ public interface Dao<T, I extends Identifiable<T>> {
     //Postponed.
     //List<I> findManyByNative(String query, Map<String, Object> parameters);
     
+    List<I> findAll();
+    
     List<I> findManyByJPQL(String query, Map<String, Object> parameters);
     
     Page<I> findPageByJPQL(String query, Map<String, Object> parameters, int page, int pageSize);
