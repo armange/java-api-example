@@ -8,6 +8,7 @@ import java.util.function.Function;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -55,6 +56,20 @@ public abstract class AbstractDao<I, E extends Identifiable<I>>
             
             return createdQuery.getSingleResult();
         });
+    }
+    
+    @Override
+    public List<E> findAll() {
+        return recoverThroughTransaction(s -> s.createQuery(createFindAllQuery()).getResultList());
+    }
+    
+    private CriteriaQuery<E> createFindAllQuery() {
+        final CriteriaBuilder criteriaBuilder = getCriteriaBuilder();
+        final CriteriaQuery<E> criteriaQuery = criteriaBuilder.createQuery(getEntityClass());
+        final Root<E> rootEntry = criteriaQuery.from(getEntityClass());
+        final CriteriaQuery<E> allQuery = criteriaQuery.select(rootEntry);
+        
+        return allQuery;
     }
 
     @Override
