@@ -9,7 +9,7 @@ public interface ServiceFindAll<T, I extends Identifiable<T>> {
 
     Dao<T, I> getDao();
     
-    default Response findAll(final I identifiable) {
+    default Response findAll() {
         return Response.ok(getDao().findAll()).build();
     }
 }

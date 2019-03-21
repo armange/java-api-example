@@ -9,7 +9,7 @@ public interface ServiceFindCountedPage<T, I extends Identifiable<T>> {
 
     Dao<T, I> getDao();
     
-    default Response findCountedPage(final I identifiable) {
-        return Response.ok(getDao().findAll()).build();
+    default Response findCountedPage() {
+        return Response.ok(getDao().findCountedPage()).build();
     }
 }
