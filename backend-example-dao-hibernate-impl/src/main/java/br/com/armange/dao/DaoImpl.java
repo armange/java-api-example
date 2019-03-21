@@ -8,6 +8,7 @@ import java.util.function.Function;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,13 +16,20 @@ import org.hibernate.query.Query;
 
 import br.com.armange.entity.Identifiable;
 
-public abstract class AbstractDao<I, E extends Identifiable<I>> 
+public class DaoImpl<I, E extends Identifiable<I>> 
         implements Dao<I, E>{
 
     private final SessionFactory sessionFactory;
+    private final Class<E> entityClass;
     
-    public AbstractDao(final SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public DaoImpl(final OrmServer ormServer, final Class<E> entityClass) {
+        this.sessionFactory = (SessionFactory) ormServer.getOrmImpl();
+        this.entityClass = entityClass;
+    }
+    
+    @Override
+    public Class<E> getEntityClass() {
+        return entityClass;
     }
     
     @Override
@@ -55,6 +63,32 @@ public abstract class AbstractDao<I, E extends Identifiable<I>>
             
             return createdQuery.getSingleResult();
         });
+    }
+    
+    @Override
+    public List<E> findAll() {
+        return recoverThroughTransaction(s -> s.createQuery(createFindAllQuery()).getResultList());
+    }
+    
+    @Override
+    public Page<E> findPage() {
+        return recoverThroughTransaction(
+                createPage(createFindAllQuery(), 0, 10));
+    }
+
+    @Override
+    public Page<E> findCountedPage() {
+        return recoverThroughTransaction(
+                createCountedPage(createFindAllQuery(), 0, 10));
+    }
+    
+    private CriteriaQuery<E> createFindAllQuery() {
+        final CriteriaBuilder criteriaBuilder = getCriteriaBuilder();
+        final CriteriaQuery<E> criteriaQuery = criteriaBuilder.createQuery(getEntityClass());
+        final Root<E> rootEntry = criteriaQuery.from(getEntityClass());
+        final CriteriaQuery<E> allQuery = criteriaQuery.select(rootEntry);
+        
+        return allQuery;
     }
 
     @Override
@@ -153,6 +187,30 @@ public abstract class AbstractDao<I, E extends Identifiable<I>>
             applyQueryParameters(parameters, createdQuery);
             
             return queryConsumer.apply(createdQuery);
+        };
+    }
+    
+    private Function<Session, Page<E>> createPage(
+            final CriteriaQuery<E> query, 
+            final int page, 
+            final int pageSize) {
+        return s -> {
+            final Query<E> createdQuery = s.createQuery(query);
+            
+            return getPageResult(page, pageSize, null).apply(createdQuery);
+        };
+    }
+    
+    private Function<Session, Page<E>> createCountedPage(
+            final CriteriaQuery<E> query, 
+            final int page, 
+            final int pageSize) {
+        return session -> {
+            final Long pageCount = pageCount(session, pageSize);
+            
+            final Query<E> createdQuery = session.createQuery(query);
+            
+            return getPageResult(page, pageSize, pageCount).apply(createdQuery);
         };
     }
     
