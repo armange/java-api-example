@@ -1,13 +1,12 @@
 package br.com.armange.dao.artifacts;
 
-import org.hibernate.SessionFactory;
+import br.com.armange.dao.DaoImpl;
+import br.com.armange.dao.OrmServer;
 
-import br.com.armange.dao.AbstractDao;
+public class TestEntityDao extends DaoImpl<Long, TestEntity> {
 
-public class TestEntityDao extends AbstractDao<Long, TestEntity> {
-
-    public TestEntityDao(final SessionFactory sessionFactory) {
-        super(sessionFactory);
+    public TestEntityDao(final OrmServer ormServer, final Class<TestEntity> entityClass) {
+        super(ormServer, entityClass);
     }
 
     @Override

@@ -35,6 +35,10 @@ public interface Dao<T, I extends Identifiable<T>> {
     
     List<I> findAll();
     
+    Page<I> findPage();
+    
+    Page<I> findCountedPage();
+    
     List<I> findManyByJPQL(String query, Map<String, Object> parameters);
     
     Page<I> findPageByJPQL(String query, Map<String, Object> parameters, int page, int pageSize);
