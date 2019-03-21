@@ -9,25 +9,23 @@ import javax.persistence.criteria.CriteriaBuilder;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.hamcrest.Matchers;
-import org.hibernate.SessionFactory;
 import org.junit.Assert;
 import org.junit.Test;
 
 import br.com.armange.codeless.core.StringUtil;
 import br.com.armange.dao.artifacts.TestEntity;
 import br.com.armange.dao.artifacts.TestEntityDao;
-import br.com.armange.dao.session.NamedSessionFactory;
 
 public class AbstractDaoTest {
 
     private static final String ID = "id";
     private static final String HELLO_HIBERNATE = "Hello Hibernate";
     private static final String HELLO_H2 = "Hello H2";
-    private final SessionFactory sessionFactory = NamedSessionFactory.fromName("h2");
+    private final OrmServer ormServer = new OrmServerImpl("h2");
     
     @Test
     public void daoMustSaveEntity() {
-        final TestEntityDao dao = new TestEntityDao(sessionFactory);
+        final TestEntityDao dao = new TestEntityDao(ormServer, TestEntity.class);
         final TestEntity entity = new TestEntity();
         
         entity.setDescription(HELLO_HIBERNATE);
@@ -44,7 +42,7 @@ public class AbstractDaoTest {
     
     @Test
     public void daoMustUpdateEntity() {
-        final TestEntityDao dao = new TestEntityDao(sessionFactory);
+        final TestEntityDao dao = new TestEntityDao(ormServer, TestEntity.class);
         final TestEntity entity = new TestEntity();
         
         entity.setDescription(HELLO_HIBERNATE);
@@ -64,7 +62,7 @@ public class AbstractDaoTest {
     
     @Test
     public void daoMustDeleteEntity() {
-        final TestEntityDao dao = new TestEntityDao(sessionFactory);
+        final TestEntityDao dao = new TestEntityDao(ormServer, TestEntity.class);
         final TestEntity entity = new TestEntity();
         
         entity.setDescription(HELLO_HIBERNATE);
@@ -78,7 +76,7 @@ public class AbstractDaoTest {
     
     @Test
     public void daoMustFindOne() {
-        final TestEntityDao dao = new TestEntityDao(sessionFactory);
+        final TestEntityDao dao = new TestEntityDao(ormServer, TestEntity.class);
         final TestEntity entity = new TestEntity();
         
         dao.save(entity);
@@ -90,7 +88,7 @@ public class AbstractDaoTest {
     
     @Test
     public void daoMustFindOneByJPQL() {
-        final TestEntityDao dao = new TestEntityDao(sessionFactory);
+        final TestEntityDao dao = new TestEntityDao(ormServer, TestEntity.class);
         final TestEntity entity = new TestEntity();
         
         entity.setDescription(HELLO_HIBERNATE);
@@ -111,7 +109,7 @@ public class AbstractDaoTest {
     
     @Test
     public void daoMustFindManyByJPQL() {
-        final TestEntityDao dao = new TestEntityDao(sessionFactory);
+        final TestEntityDao dao = new TestEntityDao(ormServer, TestEntity.class);
         final TestEntity entity = new TestEntity();
         
         entity.setDescription(HELLO_HIBERNATE);
@@ -137,7 +135,7 @@ public class AbstractDaoTest {
     
     @Test
     public void daoMustProvideCriteriaBuilder() {
-        final TestEntityDao dao = new TestEntityDao(sessionFactory);
+        final TestEntityDao dao = new TestEntityDao(ormServer, TestEntity.class);
         final Object criteriaBuilder = dao.getCriteriaBuilder();
         final SoftAssertions softAssertions = new SoftAssertions();
         
@@ -148,7 +146,7 @@ public class AbstractDaoTest {
     
     @Test(expected=org.hibernate.TransientObjectException.class)
     public void daoMustThrowExceptionWhenFailOnDoAnything() {
-        final TestEntityDao dao = new TestEntityDao(sessionFactory);
+        final TestEntityDao dao = new TestEntityDao(ormServer, TestEntity.class);
         final TestEntity entity = new TestEntity();
         
         dao.update(entity);
@@ -156,7 +154,7 @@ public class AbstractDaoTest {
     
     @Test(expected=java.lang.IllegalArgumentException.class)
     public void daoMustThrowExceptionWhenFailOnRetrieveAnything() {
-        final TestEntityDao dao = new TestEntityDao(sessionFactory);
+        final TestEntityDao dao = new TestEntityDao(ormServer, TestEntity.class);
         
         dao.findManyByJPQL(StringUtil.EMPTY, null);
     }
