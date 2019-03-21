@@ -5,11 +5,11 @@ import javax.ws.rs.core.Response;
 import br.com.armange.dao.Dao;
 import br.com.armange.entity.Identifiable;
 
-public interface ServiceFindOne<T, I extends Identifiable<T>> {
+public interface ServiceFindCountedPage<T, I extends Identifiable<T>> {
 
     Dao<T, I> getDao();
     
-    default Response findOne(final T identity) {
-        return Response.ok(getDao().findOne(identity)).build();
+    default Response findCountedPage() {
+        return Response.ok(getDao().findCountedPage()).build();
     }
 }
