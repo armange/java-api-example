@@ -1,6 +1,6 @@
 dependencies {
     compile projects.backend_example_entity_api
-    compile projects.backend_example_dao_api
+    compile projects.backend_example_rest_service_api
     
     compile library.javax_ws_rs_javax_ws_rs_api
     //compile library.org_apache_httpcomponents_httpcore
