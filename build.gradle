@@ -3,7 +3,7 @@ allprojects {
     apply plugin: 'maven'
     apply plugin: 'maven-publish'
     
-    group = 'br.com.armange.backend-example'
+    group = 'br.com.armange.backend.architeture'
     version = '0.0.1-SNAPSHOT'
     sourceCompatibility = 1.8
     

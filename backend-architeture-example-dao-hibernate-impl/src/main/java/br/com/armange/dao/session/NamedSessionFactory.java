@@ -16,7 +16,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 import br.com.armange.codeless.core.StringUtil;
-import br.com.armange.codeless.reflection.sourceclass.ClassReflection;
+import br.com.armange.codeless.reflection.clazz.ClassReflectionClosures;
 import br.com.armange.dao.configuration.DaoProperties;
 
 public class NamedSessionFactory {
@@ -94,7 +94,7 @@ public class NamedSessionFactory {
     private static void addAnnotatedClass(final List<String> entityClassList, final Configuration configuration) {
         entityClassList
             .stream()
-            .map(ClassReflection.mapToClass())
+            .map(ClassReflectionClosures.mapToClass())
             .forEach(configuration::addAnnotatedClass);
     }
     
