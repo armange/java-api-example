@@ -78,8 +78,8 @@ public class DaoImpl<I, E extends Identifiable<I>>
     }
 
     @Override
-    public Page<E> findCountedPage() {
-        return recoverThroughTransaction(
+    public CountedPage<E> findCountedPage() {
+        return (CountedPage<E>) recoverThroughTransaction(
                 createCountedPage(createFindAllQuery(), 0, 10));
     }
     
@@ -113,7 +113,7 @@ public class DaoImpl<I, E extends Identifiable<I>>
     }
     
     @Override
-    public Page<E> findCountedPageByJPQL(
+    public CountedPage<E> findCountedPageByJPQL(
             final String query, 
             final Map<String, Object> parameters,
             final int page,
@@ -217,7 +217,7 @@ public class DaoImpl<I, E extends Identifiable<I>>
         };
     }
     
-    private Function<Session, Page<E>> createParameterizedCountedPage(
+    private Function<Session, CountedPage<E>> createParameterizedCountedPage(
             final String query, 
             final Map<String, Object> parameters,
             final int page, 
@@ -229,7 +229,7 @@ public class DaoImpl<I, E extends Identifiable<I>>
             
             applyQueryParameters(parameters, createdQuery);
             
-            return getPageResult(page, pageSize, pageCount).apply(createdQuery);
+            return (CountedPage<E>) getPageResult(page, pageSize, pageCount).apply(createdQuery);
         };
     }
 

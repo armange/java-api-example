@@ -5,11 +5,14 @@ import javax.ws.rs.core.Response;
 import br.com.armange.entity.Identifiable;
 import br.com.armange.rest.service.ServiceFindPage;
 
-public interface ResourceFindPage<T, I extends Identifiable<T>> {
-
-    ServiceFindPage<T, I> getServiceFindPage();
+public interface ResourceFindPage<
+        T, 
+        I extends Identifiable<T>, 
+        S extends ServiceFindPage<T, I>> {
+        
+    S getService();
     
-    default Response findOne(final T identity) {
-        return getServiceFindPage().findPage();
+    default Response findFindPage(final T identity) {
+        return getService().findPage();
     }
 }

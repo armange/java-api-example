@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.apache.deltaspike.core.api.config.ConfigResolver;
@@ -48,6 +49,7 @@ public class NamedSessionFactory {
         
         addAnnotatedClass(entityClassList, configuration);
         addPackage(entityPackageList, configuration);
+//        configuration.setNam
         
         final ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties())
@@ -94,11 +96,19 @@ public class NamedSessionFactory {
     private static void addAnnotatedClass(final List<String> entityClassList, final Configuration configuration) {
         entityClassList
             .stream()
+            .filter(notEmptyString())
             .map(ClassReflectionClosures.mapToClass())
             .forEach(configuration::addAnnotatedClass);
     }
     
     private static void addPackage(final List<String> entityPackageList, final Configuration configuration) {
-        entityPackageList.forEach(configuration::addPackage);
+        entityPackageList
+            .stream()
+            .filter(notEmptyString())
+            .forEach(configuration::addPackage);
+    }
+
+    private static Predicate<? super String> notEmptyString() {
+        return s -> !s.isEmpty();
     }
 }

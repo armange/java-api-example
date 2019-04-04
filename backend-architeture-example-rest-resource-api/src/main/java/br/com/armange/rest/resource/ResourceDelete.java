@@ -5,11 +5,14 @@ import javax.ws.rs.core.Response;
 import br.com.armange.entity.Identifiable;
 import br.com.armange.rest.service.ServiceDelete;
 
-public interface ResourceDelete<T, I extends Identifiable<T>> {
+public interface ResourceDelete<
+        T, 
+        I extends Identifiable<T>, 
+        S extends ServiceDelete<T, I>> {
 
-    ServiceDelete<T, I> getServiceDelete();
+    S getService();
     
     default Response delete(final I identifiable) {
-        return getServiceDelete().delete(identifiable);
+        return getService().delete(identifiable);
     }
 }

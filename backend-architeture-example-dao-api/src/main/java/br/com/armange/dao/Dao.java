@@ -38,7 +38,7 @@ public interface Dao<T, I extends Identifiable<T>> {
 <<<<<<< HEAD
     Page<I> findPage();
     
-    Page<I> findCountedPage();
+    CountedPage<I> findCountedPage();
     
 =======
 >>>>>>> e2edc64... FindAll Dao method.
@@ -46,7 +46,7 @@ public interface Dao<T, I extends Identifiable<T>> {
     
     Page<I> findPageByJPQL(String query, Map<String, Object> parameters, int page, int pageSize);
     
-    Page<I> findCountedPageByJPQL(String query, Map<String, Object> parameters, int page, int pageSize);
+    CountedPage<I> findCountedPageByJPQL(String query, Map<String, Object> parameters, int page, int pageSize);
     
     CriteriaBuilder getCriteriaBuilder();
 }
