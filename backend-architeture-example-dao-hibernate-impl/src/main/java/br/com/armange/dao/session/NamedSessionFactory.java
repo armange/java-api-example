@@ -49,7 +49,6 @@ public class NamedSessionFactory {
         
         addAnnotatedClass(entityClassList, configuration);
         addPackage(entityPackageList, configuration);
-//        configuration.setNam
         
         final ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties())
