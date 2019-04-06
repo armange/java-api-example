@@ -1,8 +1,9 @@
 package br.com.armange.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class AuditableEntityGeneratedId<T> extends BaseEntityGeneratedId<T> implements Auditable {
+public class AuditableEntityGeneratedId<T extends Serializable> extends BaseEntityGeneratedId<T> implements Auditable {
 
     private Date insertedAt;
     

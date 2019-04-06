@@ -4,7 +4,9 @@ import java.util.List;
 
 public class CountedPageImpl<T> extends PageImpl<T> implements CountedPage<T> {
 
-    private final Long pageCount;
+    private Long pageCount;
+    
+    public CountedPageImpl() {}
     
     public CountedPageImpl(final List<T> rows, 
             final int pageNumber, 
@@ -19,5 +21,10 @@ public class CountedPageImpl<T> extends PageImpl<T> implements CountedPage<T> {
     @Override
     public Long getPageCount() {
         return pageCount;
+    }
+    
+    @Override
+    public void setPageCount(final Long pageCount) {
+        this.pageCount = pageCount;
     }
 }

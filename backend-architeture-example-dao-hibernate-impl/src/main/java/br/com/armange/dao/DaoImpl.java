@@ -1,5 +1,6 @@
 package br.com.armange.dao;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -10,15 +11,20 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.NonUniqueResultException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.StatelessSession;
 import org.hibernate.query.Query;
 
+import br.com.armange.codeless.core.StringUtil;
 import br.com.armange.entity.Identifiable;
+import br.com.armange.entity.Versionable;
 
-public class DaoImpl<I, E extends Identifiable<I>> 
+public class DaoImpl<I extends Serializable, E extends Identifiable<I>> 
         implements Dao<I, E>{
 
+    private static final String ENTITY_NOT_FOUND_WITH_ID = "Entity not found with ID:";
     private final SessionFactory sessionFactory;
     private final Class<E> entityClass;
     
@@ -34,19 +40,64 @@ public class DaoImpl<I, E extends Identifiable<I>>
     
     @Override
     public E save(final E identifiable) {
-        doThroughTransacion(s -> s.save(identifiable));
+        doThroughTransacion(s -> s.insert(identifiable));
         
         return identifiable;
     }
 
     @Override
     public void update(final E identifiable) {
-        doThroughTransacion(s -> s.update(identifiable));
+        doThroughTransacion(s -> applyVersionAndUpdate(identifiable, s));
+    }
+
+    @SuppressWarnings("unchecked")
+    private void applyVersionAndUpdate(final E identifiable, final StatelessSession s) {
+        try {
+            final E storedData = (E) s.get(entityClass, identifiable.getId());
+            
+            if (storedData != null) {
+                applyVersion(identifiable, storedData);
+                
+                s.update(identifiable);
+            } else {
+                throw new IllegalArgumentException(
+                        String.join(
+                                StringUtil.ONE_SPACE, ENTITY_NOT_FOUND_WITH_ID, 
+                                String.valueOf(identifiable.getId())));
+            }
+        } catch (final NonUniqueResultException | NullPointerException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    private void applyVersion(final E newEntity, final E oldEntity) {
+        if (newEntity instanceof Versionable) {
+            ((Versionable)newEntity).setVersion(((Versionable)oldEntity).getVersion());
+        }
     }
 
     @Override
-    public void delete(final E identifiable) {
-        doThroughTransacion(s -> s.delete(identifiable));
+    public void delete(final I identity) {
+        doThroughTransacion(s -> findAndDelete(identity, s));
+    }
+    
+    @SuppressWarnings("unchecked")
+    private void findAndDelete(final I identity, final StatelessSession s) {
+        try {
+            final E storedData = (E) s.get(entityClass, identity);
+            
+            if (storedData != null) {
+                s.delete(storedData);
+            } else {
+                throw new IllegalArgumentException(
+                        String.join(
+                                StringUtil.ONE_SPACE, ENTITY_NOT_FOUND_WITH_ID, 
+                                String.valueOf(identity)));
+            }
+        } catch (final NonUniqueResultException | NullPointerException e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 
     @Override
@@ -70,7 +121,6 @@ public class DaoImpl<I, E extends Identifiable<I>>
         return recoverThroughTransaction(s -> s.createQuery(createFindAllQuery()).getResultList());
     }
     
-<<<<<<< HEAD:backend-example-dao-hibernate-impl/src/main/java/br/com/armange/dao/DaoImpl.java
     @Override
     public Page<E> findPage() {
         return recoverThroughTransaction(
@@ -83,8 +133,6 @@ public class DaoImpl<I, E extends Identifiable<I>>
                 createCountedPage(createFindAllQuery(), 0, 10));
     }
     
-=======
->>>>>>> e2edc64... FindAll Dao method.:backend-example-dao-hibernate-impl/src/main/java/br/com/armange/dao/AbstractDao.java
     private CriteriaQuery<E> createFindAllQuery() {
         final CriteriaBuilder criteriaBuilder = getCriteriaBuilder();
         final CriteriaQuery<E> criteriaQuery = criteriaBuilder.createQuery(getEntityClass());
@@ -127,8 +175,8 @@ public class DaoImpl<I, E extends Identifiable<I>>
         return sessionFactory.getCriteriaBuilder();
     }
     
-    private void doThroughTransacion(final Consumer<Session> sessionConsumer) {
-        final Session session = sessionFactory.openSession();
+    private void doThroughTransacion(final Consumer<StatelessSession> sessionConsumer) {
+        final StatelessSession session = sessionFactory.openStatelessSession();
         final org.hibernate.Transaction transaction = session.beginTransaction();
         
         try {
@@ -139,6 +187,8 @@ public class DaoImpl<I, E extends Identifiable<I>>
             if(transaction.isActive()) {
                 transaction.rollback();
             }
+            
+            e.printStackTrace();
             
             throw e;
         } finally {

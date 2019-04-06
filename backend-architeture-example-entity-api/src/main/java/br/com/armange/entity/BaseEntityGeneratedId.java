@@ -1,7 +1,10 @@
 package br.com.armange.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -10,11 +13,19 @@ import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 @MappedSuperclass
-public abstract class BaseEntityGeneratedId<T> implements Identifiable<T> {
+public abstract class BaseEntityGeneratedId<T extends Serializable> implements 
+    Identifiable<T>,
+    //This type will be optimized on next versions.
+    Versionable<Date> {
 
-    @Id
     @GeneratedValue
+    @Id
     private T id;
+    
+    @Version
+    @Temporal(TemporalType.TIMESTAMP)
+    @Access(AccessType.FIELD)
+    private Date version;
     
     @Override
     public T getId() {
@@ -26,10 +37,16 @@ public abstract class BaseEntityGeneratedId<T> implements Identifiable<T> {
         this.id = id;
     }
     
-    @Version
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date version;
-
+    @Override
+    public Date getVersion() {
+        return version;
+    }
+    
+    @Override
+    public void setVersion(final Date version) {
+        this.version = version;
+    }
+    
     @Override
     public int hashCode() {
         final int prime = 31;

@@ -67,7 +67,7 @@ public class AbstractDaoTest {
         
         entity.setDescription(HELLO_HIBERNATE);
         dao.save(entity);
-        dao.delete(entity);
+        dao.delete(entity.getId());
         
         final TestEntity entityFound = dao.findOne(entity.getId());
         
@@ -144,7 +144,7 @@ public class AbstractDaoTest {
         softAssertions.assertAll();
     }
     
-    @Test(expected=org.hibernate.TransientObjectException.class)
+    @Test(expected=java.lang.IllegalArgumentException.class)
     public void daoMustThrowExceptionWhenFailOnDoAnything() {
         final TestEntityDao dao = new TestEntityDao(ormServer, TestEntity.class);
         final TestEntity entity = new TestEntity();

@@ -1,5 +1,6 @@
 package br.com.armange.dao;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -7,7 +8,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 
 import br.com.armange.entity.Identifiable;
 
-public interface Dao<T, I extends Identifiable<T>> {
+public interface Dao<T extends Serializable, I extends Identifiable<T>> {
 
     Class<I> getEntityClass();
     
@@ -18,7 +19,7 @@ public interface Dao<T, I extends Identifiable<T>> {
     //Postponed.
     //void saveOrUpdate(I identifiable);
     
-    void delete(I identifiable);
+    void delete(T identifiable);
     
     //Postponed.
     //Transaction beginTransaction();
@@ -35,13 +36,10 @@ public interface Dao<T, I extends Identifiable<T>> {
     
     List<I> findAll();
     
-<<<<<<< HEAD
     Page<I> findPage();
     
     CountedPage<I> findCountedPage();
     
-=======
->>>>>>> e2edc64... FindAll Dao method.
     List<I> findManyByJPQL(String query, Map<String, Object> parameters);
     
     Page<I> findPageByJPQL(String query, Map<String, Object> parameters, int page, int pageSize);

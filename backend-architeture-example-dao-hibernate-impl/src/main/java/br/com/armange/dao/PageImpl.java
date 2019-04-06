@@ -4,12 +4,14 @@ import java.util.List;
 
 public class PageImpl<T> implements Page<T> {
 
-    private final List<T> rows;
-    private final int pageNumber;
-    private final int pageStart;
-    private final int pageSize;
+    private List<T> rows;
+    private int pageNumber;
+    private int pageStart;
+    private int pageSize;
     
-    PageImpl(final List<T> rows, 
+    public PageImpl() {}
+    
+    public PageImpl(final List<T> rows, 
             final int pageNumber, 
             final int pageStart, 
             final int pageSize) {
@@ -23,19 +25,39 @@ public class PageImpl<T> implements Page<T> {
     public List<T> getRows() {
         return rows;
     }
+    
+    @Override
+    public void setRows(final List<T> rows) {
+        this.rows = rows;
+    }
 
     @Override
     public int getPageNumber() {
         return pageNumber;
+    }
+    
+    @Override
+    public void setPageNumber(final int pageNumber) {
+        this.pageNumber = pageNumber;
     }
 
     @Override
     public int getPageStart() {
         return pageStart;
     }
+    
+    @Override
+    public void setPageStart(final int pageStart) {
+        this.pageStart = pageStart;
+    }
 
     @Override
     public int getPageSize() {
         return pageSize;
+    }
+    
+    @Override
+    public void setPageSize(final int pageSize) {
+        this.pageSize = pageSize;
     }
 }
