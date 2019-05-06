@@ -11,6 +11,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.NonUniqueResultException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -25,6 +27,7 @@ public class DaoImpl<I extends Serializable, E extends Identifiable<I>>
         implements Dao<I, E>{
 
     private static final String ENTITY_NOT_FOUND_WITH_ID = "Entity not found with ID:";
+    private static final Logger LOGGER = LogManager.getLogger(DaoImpl.class);
     private final SessionFactory sessionFactory;
     private final Class<E> entityClass;
     
@@ -60,13 +63,21 @@ public class DaoImpl<I extends Serializable, E extends Identifiable<I>>
                 
                 s.update(identifiable);
             } else {
-                throw new IllegalArgumentException(
+                final IllegalArgumentException iae = new IllegalArgumentException(
                         String.join(
                                 StringUtil.ONE_SPACE, ENTITY_NOT_FOUND_WITH_ID, 
                                 String.valueOf(identifiable.getId())));
+                
+                LOGGER.error(iae.getMessage(), iae);
+                
+                throw iae;
             }
         } catch (final NonUniqueResultException | NullPointerException e) {
-            throw new IllegalArgumentException(e);
+            final IllegalArgumentException iae = new IllegalArgumentException(e);
+            
+            LOGGER.error(iae.getMessage(), iae);
+            
+            throw iae;
         }
     }
 
@@ -90,13 +101,21 @@ public class DaoImpl<I extends Serializable, E extends Identifiable<I>>
             if (storedData != null) {
                 s.delete(storedData);
             } else {
-                throw new IllegalArgumentException(
+                final IllegalArgumentException iae = new IllegalArgumentException(
                         String.join(
                                 StringUtil.ONE_SPACE, ENTITY_NOT_FOUND_WITH_ID, 
                                 String.valueOf(identity)));
+                
+                LOGGER.error(iae.getMessage(), iae);
+                
+                throw iae;
             }
         } catch (final NonUniqueResultException | NullPointerException e) {
-            throw new IllegalArgumentException(e);
+            final IllegalArgumentException iae = new IllegalArgumentException(e);
+            
+            LOGGER.error(iae.getMessage(), iae);
+            
+            throw iae;
         }
     }
 
@@ -188,7 +207,7 @@ public class DaoImpl<I extends Serializable, E extends Identifiable<I>>
                 transaction.rollback();
             }
             
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             
             throw e;
         } finally {
@@ -210,6 +229,8 @@ public class DaoImpl<I extends Serializable, E extends Identifiable<I>>
             if(transaction.isActive()) {
                 transaction.rollback();
             }
+            
+            LOGGER.error(e.getMessage(), e);
             
             throw e;
         } finally {
